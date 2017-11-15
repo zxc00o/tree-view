@@ -2177,11 +2177,13 @@ describe "TreeView", ->
               expect(callback).not.toHaveBeenCalled()
 
     describe "tree-view:move", ->
+      beforeEach ->
+        jasmine.attachToDOM(workspaceElement)
+
       describe "when a file is selected", ->
         [moveDialog, callback] = []
 
         beforeEach ->
-          jasmine.attachToDOM(workspaceElement)
           callback = jasmine.createSpy("onEntryMoved")
           treeView.onEntryMoved(callback)
 
@@ -2342,8 +2344,6 @@ describe "TreeView", ->
         moveDialog = null
 
         beforeEach ->
-          jasmine.attachToDOM(workspaceElement)
-
           waitForWorkspaceOpenEvent ->
             atom.workspace.open(filePath)
 
@@ -3465,6 +3465,7 @@ describe "TreeView", ->
   describe "showSelectedEntryInFileManager()", ->
     beforeEach ->
       atom.notifications.clear()
+      jasmine.attachToDOM(workspaceElement)
 
     it "displays the standard error output when the process fails", ->
       {BufferedProcess} = require 'atom'
